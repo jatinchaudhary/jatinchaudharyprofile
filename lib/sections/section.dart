@@ -36,7 +36,7 @@ class _SectionsState extends State<Sections> {
         scrollSpeed: 1,
         controller: _scrollController,
         child: SingleChildScrollView(
-          physics: const NeverScrollableScrollPhysics(),
+         // physics: const NeverScrollableScrollPhysics(),
           controller: _scrollController,
           child: Column(
             children: [

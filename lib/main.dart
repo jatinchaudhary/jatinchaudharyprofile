@@ -15,7 +15,7 @@ class PortfolioWebApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Jatin Chaudhary Portfolio',
+      title: 'Jatin Chaudhary',
       theme: ThemeData(
         brightness: Brightness.dark,
         scaffoldBackgroundColor: Colors.black,
