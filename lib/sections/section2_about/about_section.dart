@@ -8,7 +8,7 @@ class AboutSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20),
-      height: 500,
+      height: 600,
 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

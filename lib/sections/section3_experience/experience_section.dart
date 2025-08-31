@@ -24,6 +24,7 @@ class ExperienceSection extends StatelessWidget {
             // Add your experience content here
             Expanded(
               child: ListView(
+                physics: NeverScrollableScrollPhysics(),
                 children: [
                   _ExperienceTimelineItem(
                     year: "2024 - present",
