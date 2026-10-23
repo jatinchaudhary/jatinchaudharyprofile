@@ -1,123 +1,136 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:jatinchaudhary/sections/section6_connect/plus_bg.dart';
+import 'package:jatinchaudhary/sections/section.dart';
 import 'package:jatinchaudhary/utils/app_text_styles.dart';
 import 'package:jatinchaudhary/utils/constants.dart';
 import 'package:jatinchaudhary/utils/links.dart';
+import 'package:jatinchaudhary/widgets/common.dart';
 
 class ConnectSection extends StatelessWidget {
   const ConnectSection({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final mobile = Breakpoints.isMobile(context);
 
-    bool isMobile = MediaQuery.of(context).size.width < 600;
+    Widget svgIcon(String asset) => SvgPicture.asset(
+      asset,
+      width: 15,
+      height: 15,
+      colorFilter: const ColorFilter.mode(AppColors.text, BlendMode.srcIn),
+    );
 
     return Stack(
       children: [
-        PlusBg(),
-        Container(width: double.infinity,),
-        Align(
-          alignment: Alignment.center,
-
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            height: 600,
-          
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                maxWidth: 800,
+        Positioned.fill(
+          child: AmbientBackground(
+            glows: [
+              (
+                const Alignment(-0.4, 0.2),
+                AppColors.glowBlue.withValues(alpha: 0.3),
+                1.0,
               ),
-          
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                   Text("Contact Me", style: AppTextStyles.sectionHeadingStyle),
-                  SizedBox(height: 40,),
-                   Text("Let's get in touch", style: AppTextStyles.contactTextStyle),
-                   SizedBox(height: 8,),
-                  Text("Feel free to contact me. I try to reach back to you soon.", style: AppTextStyles.contactTextStyle),
-                  SizedBox(height: 10,),
-          
-          
-                  Row(
+              (
+                const Alignment(0.5, -0.2),
+                AppColors.glowTeal.withValues(alpha: 0.4),
+                0.8,
+              ),
+              (
+                const Alignment(0.0, 1.0),
+                AppColors.glowPurple.withValues(alpha: 0.35),
+                0.7,
+              ),
+            ],
+          ),
+        ),
+        // Fade the grid in from the section above.
+        const Positioned(
+          left: 0,
+          right: 0,
+          top: 0,
+          height: 200,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [AppColors.bg, Color(0x00000000)],
+              ),
+            ),
+          ),
+        ),
+        ContentWidth(
+          child: Padding(
+            padding: EdgeInsets.only(top: mobile ? 72 : 96, bottom: 36),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Reveal(
+                  child: SectionLabel(number: '05', label: 'Contact'),
+                ),
+                const SizedBox(height: 28),
+                Reveal(
+                  delay: const Duration(milliseconds: 80),
+                  child: EmphasisText(
+                    "Let's build something\n*worth shipping.*",
+                    style: AppTextStyles.display(size: fluid(context, 48, 104)),
+                  ),
+                ),
+                const SizedBox(height: 28),
+                Reveal(
+                  delay: const Duration(milliseconds: 160),
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 520),
+                    child: Text(
+                      "Whether it's a role, a product idea or a hard systems "
+                      "problem, my inbox is open. I'll get back to you soon.",
+                      style: AppTextStyles.body(size: 17),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 48),
+                const Reveal(
+                  delay: Duration(milliseconds: 240),
+                  child: _EmailLine(),
+                ),
+                const SizedBox(height: 36),
+                Reveal(
+                  delay: const Duration(milliseconds: 320),
+                  child: Wrap(
+                    spacing: 12,
+                    runSpacing: 12,
                     children: [
-          
-                      Text(Links.email, style: AppTextStyles.emailContentStyle),
-          
-                      SizedBox(width: 10,),
-          
-                      MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: GestureDetector(
-                          onTap: () {
-                            Clipboard.setData(ClipboardData(text: Links.email));
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Email copied to clipboard')),
-                            );
-                          },
-                          child: Icon(Icons.copy, size: 16,),
-                        ),
+                      PillButton(
+                        label: 'Email me',
+                        filled: true,
+                        trailing: Icons.arrow_forward,
+                        onTap: Links.mail,
                       ),
-          
+                      PillButton(
+                        label: 'LinkedIn',
+                        leading: svgIcon(Constants.linkedinIcon),
+                        trailing: Icons.north_east,
+                        onTap: () => Links.open(Links.linkedin),
+                      ),
+                      PillButton(
+                        label: 'GitHub',
+                        leading: svgIcon(Constants.githubIcon),
+                        trailing: Icons.north_east,
+                        onTap: () => Links.open(Links.github),
+                      ),
+                      PillButton(
+                        label: 'Resume',
+                        leading: svgIcon(Constants.downloadIcon),
+                        trailing: Icons.north_east,
+                        onTap: () => Links.open(Links.resume),
+                      ),
                     ],
                   ),
-          
-          
-                  SizedBox(height: 50,),
-
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox( 
-                        width: 210,
-                        child: ContactBox(title: 'Download Resume', imagePath: Constants.downloadIcon, onTap: () => Links.open(Links.resume),)),
-                        isMobile ? SizedBox(width: 10,) : Container(),
-                        isMobile ? ContactBox(title: 'My GitHub', imagePath: Constants.githubIcon, onTap: () => Links.open(Links.github),) : SizedBox(width: 0,),
-                    ],
-                  ),
-
-                  SizedBox(height: 10,),
-          
-          
-                  Row(
-                    children: [
-          
-                      ContactBox(title: 'Email Me', imagePath: Constants.emailIcon, onTap: Links.mail,),
-                      isMobile ? Container() : SizedBox(width: 10,),
-                      isMobile ? Container() :ContactBox(title: 'My GitHub', imagePath: Constants.githubIcon, onTap: () => Links.open(Links.github),),
-                      SizedBox(width: 10,),
-                      ContactBox(title: 'My Linkedin', imagePath: Constants.linkedinIcon, onTap: () => Links.open(Links.linkedin),)
-          
-                    ],
-                  ),
-
-
-
-                  SizedBox(height: 90,),
-
-
-                  Container(
-                    width: double.infinity,
-                    height: 1,
-                    color: Colors.white.withOpacity(0.1),
-                  ),
-
-                  SizedBox(height: 30,),
-
-                  Text('Designed and Developed with love, ofcourse by myself.', style: AppTextStyles.sectionContentStyle,),
-                  SizedBox(height: 5,),
-                  Text('Purely build in Flutter!', style: AppTextStyles.sectionContentStyle,)
-
-
-          
-          
-                  
-                ],
-              ),
+                ),
+                SizedBox(height: mobile ? 104 : 160),
+                const _Footer(),
+              ],
             ),
           ),
         ),
@@ -126,44 +139,153 @@ class ConnectSection extends StatelessWidget {
   }
 }
 
+/// The email address set large, with an underline that warms on hover and a
+/// copy button that confirms inline.
+class _EmailLine extends StatefulWidget {
+  const _EmailLine();
 
-class ContactBox extends StatelessWidget {
-  final String title;
-  final String imagePath;
-  final VoidCallback onTap;
+  @override
+  State<_EmailLine> createState() => _EmailLineState();
+}
 
-  const ContactBox({super.key, required this.title, required this.imagePath, required this.onTap});
+class _EmailLineState extends State<_EmailLine> {
+  bool _copied = false;
+
+  Future<void> _copy() async {
+    await Clipboard.setData(const ClipboardData(text: Links.email));
+    if (!mounted) return;
+    setState(() => _copied = true);
+    await Future.delayed(const Duration(seconds: 2));
+    if (mounted) setState(() => _copied = false);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: onTap,
-        child: _buildBox(),
-      ),
+    final size = fluid(context, 24, 44);
+    return Wrap(
+      crossAxisAlignment: WrapCrossAlignment.center,
+      spacing: 20,
+      runSpacing: 16,
+      children: [
+        HoverBuilder(
+          onTap: Links.mail,
+          builder:
+              (context, hovered) => IntrinsicWidth(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    AnimatedDefaultTextStyle(
+                      duration: const Duration(milliseconds: 250),
+                      style: AppTextStyles.display(
+                        size: size,
+                        color: hovered ? AppColors.accent : AppColors.text,
+                      ),
+                      child: const Text(Links.email),
+                    ),
+                    const SizedBox(height: 6),
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 250),
+                      height: 1,
+                      color:
+                          hovered ? AppColors.accent : AppColors.borderStrong,
+                    ),
+                  ],
+                ),
+              ),
+        ),
+        HoverBuilder(
+          onTap: _copy,
+          builder:
+              (context, hovered) => AnimatedContainer(
+                duration: const Duration(milliseconds: 220),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 9,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(999),
+                  border: Border.all(
+                    color:
+                        _copied
+                            ? AppColors.live.withValues(alpha: 0.5)
+                            : (hovered
+                                ? const Color(0x4DFFFFFF)
+                                : AppColors.borderStrong),
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      _copied ? Icons.check : Icons.copy_rounded,
+                      size: 14,
+                      color: _copied ? AppColors.live : AppColors.textMuted,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      _copied ? 'Copied' : 'Copy',
+                      style: AppTextStyles.mono(
+                        size: 11,
+                        color: _copied ? AppColors.live : AppColors.textMuted,
+                        letterSpacing: 1,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+        ),
+      ],
     );
   }
+}
 
-  Widget _buildBox() {
+class _Footer extends StatelessWidget {
+  const _Footer();
+
+  @override
+  Widget build(BuildContext context) {
+    final scroller = SectionScroller.of(context);
+    final style = AppTextStyles.body(size: 13, color: AppColors.textFaint);
+
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      decoration: BoxDecoration(
-        border: Border.all(color: const Color.fromARGB(17, 255, 255, 255), width: 1),
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            const Color.fromARGB(11, 255, 255, 255),
-            const Color.fromARGB(25, 255, 255, 255)]
-        )
+      width: double.infinity,
+      padding: const EdgeInsets.only(top: 28),
+      decoration: const BoxDecoration(
+        border: Border(top: BorderSide(color: AppColors.border)),
       ),
-      child: Row(
+      child: Wrap(
+        alignment: WrapAlignment.spaceBetween,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        spacing: 24,
+        runSpacing: 12,
         children: [
-          SvgPicture.asset(imagePath, height: 20, width: 20,),
-          SizedBox(width: 8,),
-          Text(title, style: AppTextStyles.contactTextStyle.copyWith(fontWeight: FontWeight.bold)),
+          Text('© ${DateTime.now().year} Jatin Chaudhary', style: style),
+          Text('Designed & built from scratch in Flutter', style: style),
+          HoverBuilder(
+            onTap: () => scroller.goTo(null),
+            builder:
+                (context, hovered) => Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Back to top',
+                      style: style.copyWith(
+                        color: hovered ? AppColors.text : AppColors.textFaint,
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    AnimatedSlide(
+                      duration: const Duration(milliseconds: 220),
+                      offset: hovered ? const Offset(0, -0.2) : Offset.zero,
+                      child: Icon(
+                        Icons.north,
+                        size: 13,
+                        color: hovered ? AppColors.accent : AppColors.textFaint,
+                      ),
+                    ),
+                  ],
+                ),
+          ),
         ],
       ),
     );

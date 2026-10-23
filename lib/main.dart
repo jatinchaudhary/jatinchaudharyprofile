@@ -5,7 +5,17 @@ import 'utils/app_text_styles.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await GoogleFonts.getFont('Roboto'); 
+  // Warm the core faces so the first frame doesn't flash fallback fonts.
+  // Never block startup on it: offline, the fallbacks are fine.
+  try {
+    await GoogleFonts.pendingFonts([
+      AppTextStyles.display(),
+      AppTextStyles.display().copyWith(fontStyle: FontStyle.italic),
+      AppTextStyles.body(),
+      AppTextStyles.body(weight: FontWeight.w500),
+      AppTextStyles.mono(),
+    ]).timeout(const Duration(seconds: 3));
+  } catch (_) {}
   runApp(const PortfolioWebApp());
 }
 
@@ -18,11 +28,13 @@ class PortfolioWebApp extends StatelessWidget {
       title: 'Jatin Chaudhary',
       theme: ThemeData(
         brightness: Brightness.dark,
-        scaffoldBackgroundColor: Colors.black,
-        textTheme: TextTheme(
-          headlineLarge: AppTextStyles.headline1.copyWith(color: Colors.white),
-          headlineMedium: AppTextStyles.headline2.copyWith(color: Colors.white70),
-          bodyMedium: AppTextStyles.heading2Style.copyWith(color: Colors.white60),
+        scaffoldBackgroundColor: AppColors.bg,
+        colorScheme: const ColorScheme.dark(
+          primary: AppColors.accent,
+          surface: AppColors.surface,
+        ),
+        textSelectionTheme: TextSelectionThemeData(
+          selectionColor: AppColors.accent.withValues(alpha: 0.3),
         ),
         useMaterial3: true,
       ),
@@ -31,7 +43,3 @@ class PortfolioWebApp extends StatelessWidget {
     );
   }
 }
-
-
-
-

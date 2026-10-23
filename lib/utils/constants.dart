@@ -1,6 +1,4 @@
 class Constants {
-
-
   static const String flutterIcon = "assets/flutter_icon.png";
   static const String firebaseIcon = "assets/firebase_icon.png";
   static const String iosIcon = "assets/ios_icon.png";
@@ -10,8 +8,6 @@ class Constants {
   static const String pubdevIcon = "assets/pubdev_icon.png";
   static const String restIcon = "assets/rest_icon.png";
   static const String llmIcon = "assets/llm_icon.png";
-
-
 
   static const String dartIcon = "assets/dart_icon.svg";
   static const String cppIcon = "assets/cpp_icon.svg";
@@ -27,7 +23,6 @@ class Constants {
   static const String pythonIcon = "assets/python_icon.svg";
   static const String typescriptIcon = "assets/typescript_icon.svg";
   static const String elasticsearchIcon = "assets/elasticsearch_icon.svg";
-
 
   static const String featureToolTip = "assets/work/feature_tooltip.png";
   static const String gpsOrbit = "assets/work/gps_orbit.png";
