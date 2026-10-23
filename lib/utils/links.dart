@@ -6,6 +6,8 @@ class Links {
   static const String linkedin = "http://www.linkedin.com/in/jatinchaudhary41";
   static const String locusPlay = "https://locus.jatinchaudhary.com";
   static const String astroRegal = "https://astroregal.com/";
+  static const String featureTooltip =
+      "https://pub.dev/packages/feature_tooltip";
 
   // Served from web/resume.pdf, resolved against the page so it also works
   // when the site is hosted under a sub-path.
