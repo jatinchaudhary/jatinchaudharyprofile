@@ -18,6 +18,15 @@ class Constants {
   static const String nodeIcon = "assets/node_icon.svg";
   static const String androidIcon = "assets/android_icon.svg";
   static const String graphqlIcon = "assets/graphql_icon.svg";
+  static const String javaIcon = "assets/java_icon.svg";
+  static const String springIcon = "assets/spring_icon.svg";
+  static const String kafkaIcon = "assets/apachekafka_icon.svg";
+  static const String redisIcon = "assets/redis_icon.svg";
+  static const String postgresIcon = "assets/postgresql_icon.svg";
+  static const String dockerIcon = "assets/docker_icon.svg";
+  static const String pythonIcon = "assets/python_icon.svg";
+  static const String typescriptIcon = "assets/typescript_icon.svg";
+  static const String elasticsearchIcon = "assets/elasticsearch_icon.svg";
 
 
   static const String featureToolTip = "assets/work/feature_tooltip.png";

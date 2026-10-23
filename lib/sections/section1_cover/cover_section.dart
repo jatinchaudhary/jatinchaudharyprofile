@@ -4,6 +4,7 @@ import 'package:jatinchaudhary/sections/section1_cover/widgets/first_page_bg.dar
 import 'package:jatinchaudhary/utils/app_text_styles.dart';
 import 'package:jatinchaudhary/sections/section1_cover/widgets/dashed_border_box.dart';
 import 'package:jatinchaudhary/utils/constants.dart';
+import 'package:jatinchaudhary/utils/links.dart';
 
 class CoverSection extends StatelessWidget {
   const CoverSection({super.key});
@@ -42,7 +43,11 @@ class CoverSection extends StatelessWidget {
             child: Positioned(
               top: 55,
               right: 70,
-              child: Container(
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                onTap: () => Links.open(Links.resume),
+                child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -76,6 +81,8 @@ class CoverSection extends StatelessWidget {
                     ),
                   ],
                 ),
+              ),
+              ),
               ),
             ),
           ),
@@ -126,7 +133,7 @@ class BuildHeading extends StatelessWidget {
               ],
             ),
         mobileAppSection(
-          isNarrow ? "mobile apps." : "mobile applications.",
+          isNarrow ? "systems." : "scalable systems.",
           isNarrow,
         ),
       ],

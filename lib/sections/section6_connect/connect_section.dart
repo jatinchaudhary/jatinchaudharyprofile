@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jatinchaudhary/sections/section6_connect/plus_bg.dart';
 import 'package:jatinchaudhary/utils/app_text_styles.dart';
 import 'package:jatinchaudhary/utils/constants.dart';
+import 'package:jatinchaudhary/utils/links.dart';
 
 class ConnectSection extends StatelessWidget {
   const ConnectSection({super.key});
@@ -43,11 +45,22 @@ class ConnectSection extends StatelessWidget {
                   Row(
                     children: [
           
-                      Text('Jatinchaudhary41@gmail.com', style: AppTextStyles.emailContentStyle),
+                      Text(Links.email, style: AppTextStyles.emailContentStyle),
           
                       SizedBox(width: 10,),
           
-                      Icon(Icons.copy, size: 16,),
+                      MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          onTap: () {
+                            Clipboard.setData(ClipboardData(text: Links.email));
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Email copied to clipboard')),
+                            );
+                          },
+                          child: Icon(Icons.copy, size: 16,),
+                        ),
+                      ),
           
                     ],
                   ),
@@ -61,9 +74,9 @@ class ConnectSection extends StatelessWidget {
                     children: [
                       SizedBox( 
                         width: 210,
-                        child: ContactBox(title: 'Download Resume', imagePath: Constants.downloadIcon,)),
+                        child: ContactBox(title: 'Download Resume', imagePath: Constants.downloadIcon, onTap: () => Links.open(Links.resume),)),
                         isMobile ? SizedBox(width: 10,) : Container(),
-                        isMobile ? ContactBox(title: 'My GitHub', imagePath: Constants.githubIcon,) : SizedBox(width: 0,),
+                        isMobile ? ContactBox(title: 'My GitHub', imagePath: Constants.githubIcon, onTap: () => Links.open(Links.github),) : SizedBox(width: 0,),
                     ],
                   ),
 
@@ -73,11 +86,11 @@ class ConnectSection extends StatelessWidget {
                   Row(
                     children: [
           
-                      ContactBox(title: 'Email Me', imagePath: Constants.emailIcon,),
+                      ContactBox(title: 'Email Me', imagePath: Constants.emailIcon, onTap: Links.mail,),
                       isMobile ? Container() : SizedBox(width: 10,),
-                      isMobile ? Container() :ContactBox(title: 'My GitHub', imagePath: Constants.githubIcon,),
+                      isMobile ? Container() :ContactBox(title: 'My GitHub', imagePath: Constants.githubIcon, onTap: () => Links.open(Links.github),),
                       SizedBox(width: 10,),
-                      ContactBox(title: 'My Linkedin', imagePath: Constants.linkedinIcon,)
+                      ContactBox(title: 'My Linkedin', imagePath: Constants.linkedinIcon, onTap: () => Links.open(Links.linkedin),)
           
                     ],
                   ),
@@ -117,11 +130,22 @@ class ConnectSection extends StatelessWidget {
 class ContactBox extends StatelessWidget {
   final String title;
   final String imagePath;
+  final VoidCallback onTap;
 
-  const ContactBox({super.key, required this.title, required this.imagePath});
+  const ContactBox({super.key, required this.title, required this.imagePath, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: onTap,
+        child: _buildBox(),
+      ),
+    );
+  }
+
+  Widget _buildBox() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(

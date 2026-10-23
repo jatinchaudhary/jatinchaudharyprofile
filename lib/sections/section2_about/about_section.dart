@@ -7,8 +7,8 @@ class AboutSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      height: 600,
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+      constraints: BoxConstraints(minHeight: 600),
 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -20,7 +20,7 @@ class AboutSection extends StatelessWidget {
             constraints: BoxConstraints(
                maxWidth: 800, // 👈 max width
              ),
-            child: Text("I am a Flutter engineer with 4 years of hands-on experience in building high-performance,scalable, and user-friendly applications for mobile, web, and desktop. Skilled in Dart, Flutter, Firebase, REST APIs, state management (Provider, Riverpod, BLoC), and modern app architecture, I enjoy turning complex ideas into smooth digital experiences. I’ve worked across the full app lifecycle—from ideation and UI/UX design to deployment and post-release optimization—delivering apps that are reliable, efficient, and visually engaging.",
+            child: Text("I am a software engineer with 5+ years of experience building production systems in real-money gaming, quick-commerce, and consumer AI. Currently SDE-II at Junglee Games, I architected the backend for a UK raffle platform that reached 120K+ users within 97 days, and I own the deposit stack on Junglee Rummy, where custom UPI and CVV-less payments lifted transaction success by 30%. Previously, as tech lead at Hexon Global, I led four engineers building event-driven Spring Boot and Kafka services for a quick-commerce platform. I have also built two AI products end-to-end, covering multi-agent LLM orchestration and real-time player profiling.",
              style: AppTextStyles.sectionContentStyle.copyWith(height: 2),),
           ),
 
@@ -34,9 +34,9 @@ class AboutSection extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,
               children: [
-              footer("4.5+", "Years of Experience"),
-              footer("15+", "Applications"),
-              footer("7+", "Happy Clients"),
+              footer("5+", "Years of Experience"),
+              footer("120K+", "Users Scaled"),
+              footer("30%", "Payment Lift"),
             ],),
           )
 
